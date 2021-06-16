@@ -1,3 +1,5 @@
+echo ---- THANK YOU FOR USING COMMIT SCRIPT BY DAVID VALOR -----
+
 git config --global user.name 'David Valor'
 git config --global user.email 'davidvalorwork@gmail.com'
 git config credential.helper 'store --file ~/.credentialopencvpractice'
