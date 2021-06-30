@@ -14,7 +14,23 @@ void getContours(Mat imgDil, Mat img){
   vector<Vec4i> hierarchy;
 
   findContours(imgDil, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-  drawContours(img,contours,-1,Scalar(255,0,255),2);
+  //drawContours(img,contours,-1,Scalar(255,0,255),2);
+
+  for (int i=0;i<contours.size();i++) 
+  {
+    int area = contourArea(contours[i]);
+    cout << area << endl;
+
+    vector<vector<Point>> conPoly(contours.size());
+
+    if(area>1000)
+    {
+      float peri = arcLength(contours[i], true);
+      approxPolyDP(contours[i],conPoly[i],0.02*peri,true);
+      drawContours(img,conPoly,i,Scalar(255,0,255),2);
+      cout << conPoly[i].size() << endl;
+    }
+  }
 
 }
 
@@ -32,10 +48,10 @@ int main(){
   getContours(imgDil,img);
 
   imshow("image",img);
-//   imshow("imageGray",imgGray);
-//   imshow("imageBlur",imgBlur);
-//   imshow("imageCanny",imgCanny);
-//   imshow("imageDil",imgDil);
+  // imshow("imageGray",imgGray);
+  // imshow("imageBlur",imgBlur);
+  // imshow("imageCanny",imgCanny);
+  // imshow("imageDil",imgDil);
 
   waitKey(0);
   return 0;
